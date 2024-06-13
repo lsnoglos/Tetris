@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris by Lsnoglos</title>
+    <title>Tetris by lsnoglos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
-        <div>
-            <div>Level 1</div>
-            <div>0</div>
-            <div>Max Score: 0</div>
+    <div class="game-container">
+        <div id="info">
+            <div id="level">Level 1</div>
+            <div id="score">0</div>
+            <div id="high-score">Max Score: 0</div>
         </div>
-        <button>Pausa</button>
-        <canvas></canvas>
-        <div>
-            <p></p>
-            <button>Reanudar</button>
+        <button id="pause-button">Pausa</button>
+        <canvas id="tetris"></canvas>
+        <div id="pause-message" class="hidden">
+            <p id="pause-info"></p>
+            <button id="resume-button">Reanudar</button>
         </div>
-        <div>
+        <div id="game-over" class="hidden">
             <p>GAME OVER</p>
-            <button>Reiniciar</button>
-            <button>Salir</button>
+            <button id="restart">Reiniciar</button>
+            <button id="exit">Salir</button>
         </div>
     </div>
-    <div>
-        <button>←</button>
-        <button>⟳</button>
-        <button>→</button>
-        <button>↓</button>
+    <div class="controls">
+        <button id="left-button">←</button>
+        <button id="rotate-button">⟳</button>
+        <button id="right-button">→</button>
+        <button id="down-button">↓</button>
     </div>
     <script src="tetris.js"></script>
 </body>
