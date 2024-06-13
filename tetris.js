@@ -5,6 +5,14 @@ canvas.width = 300;
 canvas.height = 600;
 context.scale(20, 20);
 
+const arena = createMatrix(12, 20);
+
+const player = {
+    pos: { x: 0, y: 0 },
+    matrix: null,
+    score: 0,
+};
+
 function createMatrix(width, height) {
     const matrix = [];
     while (height--) {
@@ -24,8 +32,13 @@ function drawMatrix(matrix, offset) {
     });
 }
 
-const arena = createMatrix(12, 20);
+function draw() {
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
+    drawMatrix(arena, { x: 0, y: 0 });
+    drawMatrix(player.matrix, player.pos);
+}
 
 function createPiece(type) {
     if (type === 'T') {
