@@ -247,3 +247,23 @@ document.addEventListener('keydown', event => {
         playerRotate(1);
     }
 });
+
+
+let lastTime = 0;
+function update(time = 0) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
+
+    dropCounter += deltaTime;
+    if (dropCounter > dropInterval) {
+        playerDrop();
+    }
+
+    draw();
+    requestAnimationFrame(update);
+}
+
+playerReset();
+updateScore();
+updateLevel();
+update();
