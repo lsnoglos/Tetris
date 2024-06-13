@@ -9,6 +9,7 @@ const arena = createMatrix(12, 20);
 let dropInterval = 1000;
 let level = 1;
 let maxLevelReached = 1;
+let dropCounter = 0;
 
 const player = {
     pos: { x: 0, y: 0 },
@@ -121,6 +122,31 @@ function playerMove(offset) {
     }
 }
 
+function playerDrop() {
+    player.pos.y++;
+    if (collide(arena, player)) {
+        player.pos.y--;
+        merge(arena, player);
+        playerReset();
+        arenaSweep();
+        updateScore();
+        checkLevel();
+    }
+    dropCounter = 0;
+}
+
+function playerReset() {
+    const pieces = 'TJLOSZI';
+    player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+    player.pos.y = 0;
+    player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+    if (collide(arena, player)) {
+        arena.forEach(row => row.fill(0));
+        player.score = 0;
+        updateScore();
+    }
+}
+
 const colors = [
     null,
     '#FF0D72',
@@ -201,3 +227,23 @@ function checkLevel() {
 function updateLevel() {
     document.getElementById('level').innerText = `Level ${level}`;
 }
+
+function updateScore() {
+    document.getElementById('score').innerText = player.score;
+}
+
+document.addEventListener('keydown', event => {
+    if (event.keyCode === 37) {
+        playerMove(-1);
+    } else if (event.keyCode === 39) {
+        playerMove(1);
+    } else if (event.keyCode === 40) {
+        playerDrop();
+    } else if (event.keyCode === 81) {
+        playerRotate(-1);
+    } else if (event.keyCode === 87) {
+        playerRotate(1);
+    } else if (event.keyCode === 32) {
+        playerRotate(1);
+    }
+});
