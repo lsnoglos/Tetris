@@ -6,6 +6,9 @@ canvas.height = 600;
 context.scale(20, 20);
 
 const arena = createMatrix(12, 20);
+let dropInterval = 1000;
+let level = 1;
+let maxLevelReached = 1;
 
 const player = {
     pos: { x: 0, y: 0 },
@@ -162,4 +165,28 @@ function createPiece(type) {
             [0, 0, 0],
         ];
     }
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function checkLevel() {
+    const newLevel = Math.floor(player.score / pointsPerLevel) + 1;
+    if (newLevel !== level) {
+        level = newLevel;
+        maxLevelReached = Math.max(maxLevelReached, level);
+        dropInterval *= 0.9;
+        document.body.style.backgroundColor = getRandomColor();
+        updateLevel();
+    }
+}
+
+function updateLevel() {
+    document.getElementById('level').innerText = `Level ${level}`;
 }
