@@ -12,6 +12,7 @@ let maxLevelReached = 1;
 let dropCounter = 0;
 const pointsPerLevel = 10;
 let isPaused = false;
+let gameOver = false;
 
 const player = {
     pos: { x: 0, y: 0 },
@@ -151,9 +152,12 @@ function playerReset() {
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
     if (collide(arena, player)) {
+        showGameOver();
         arena.forEach(row => row.fill(0));
+        checkHighScore();
         player.score = 0;
         updateScore();
+        gameOver = true;
     }
 }
 
@@ -260,6 +264,27 @@ function hidePauseMessage() {
     document.getElementById('pause-button').classList.remove('hidden');
 }
 
+function checkHighScore() {
+    const highScore = localStorage.getItem('tetrisPoint') || 0;
+    if (player.score > highScore) {
+        localStorage.setItem('tetrisPoint', player.score);
+        updateHighScore();
+    }
+}
+
+function updateHighScore() {
+    const highScore = localStorage.getItem('tetrisPoint') || 0;
+    document.getElementById('high-score').innerText = `Max Score: ${highScore}`;
+}
+
+function showGameOver() {
+    document.getElementById('game-over').classList.remove('hidden');
+}
+
+function hideGameOver() {
+    document.getElementById('game-over').classList.add('hidden');
+}
+
 document.getElementById('resume-button').addEventListener('click', () => {
     isPaused = false;
     hidePauseMessage();
@@ -269,6 +294,22 @@ document.getElementById('resume-button').addEventListener('click', () => {
 document.getElementById('pause-button').addEventListener('click', () => {
     isPaused = true;
     showPauseMessage();
+});
+
+document.getElementById('exit').addEventListener('click', () => {
+    window.close();
+});
+
+document.getElementById('restart').addEventListener('click', () => {
+    hideGameOver();
+    playerReset();
+    updateScore();
+    updateLevel();
+    dropInterval = 1000;
+    level = 1;
+    gameOver = false;
+    document.body.style.backgroundColor = '#000';
+    update();
 });
 
 document.addEventListener('keydown', event => {
@@ -291,7 +332,7 @@ document.addEventListener('keydown', event => {
 let lastTime = 0;
 function update(time = 0) {
 
-    if (isPaused) return;
+    if (isPaused || gameOver) return;
 
     const deltaTime = time - lastTime;
     lastTime = time;
@@ -325,4 +366,5 @@ document.getElementById('rotate-button').addEventListener('click', () => {
 playerReset();
 updateScore();
 updateLevel();
+updateHighScore();
 update();
