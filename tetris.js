@@ -11,6 +11,7 @@ let level = 1;
 let maxLevelReached = 1;
 let dropCounter = 0;
 const pointsPerLevel = 10;
+let isPaused = false;
 
 const player = {
     pos: { x: 0, y: 0 },
@@ -241,6 +242,35 @@ function updateScore() {
     document.getElementById('score').innerText = player.score;
 }
 
+function showPauseMessage() {
+    const pauseMessage = document.getElementById('pause-message');
+    const pauseInfo = document.getElementById('pause-info');
+    pauseInfo.innerHTML = `
+        Nivel Actual: ${level}<br>
+        Puntos Actuales: ${player.score}<br>
+        Puntaje Máximo: ${localStorage.getItem('tetrisPoint') || 0}
+    `;
+    pauseMessage.classList.remove('hidden');
+    document.getElementById('pause-button').classList.add('hidden');
+}
+
+function hidePauseMessage() {
+    const pauseMessage = document.getElementById('pause-message');
+    pauseMessage.classList.add('hidden');
+    document.getElementById('pause-button').classList.remove('hidden');
+}
+
+document.getElementById('resume-button').addEventListener('click', () => {
+    isPaused = false;
+    hidePauseMessage();
+    update();
+});
+
+document.getElementById('pause-button').addEventListener('click', () => {
+    isPaused = true;
+    showPauseMessage();
+});
+
 document.addEventListener('keydown', event => {
     if (event.keyCode === 37) {
         playerMove(-1);
@@ -260,6 +290,9 @@ document.addEventListener('keydown', event => {
 
 let lastTime = 0;
 function update(time = 0) {
+
+    if (isPaused) return;
+
     const deltaTime = time - lastTime;
     lastTime = time;
 

@@ -49,8 +49,13 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
+    font-weight: bold;
+    background-color: rgba(255, 160, 160, 0.7);
+    width: 60%;
+    box-shadow: 0px 0px 8px black;
+
 }
 
 .hidden {
