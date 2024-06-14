@@ -57,12 +57,12 @@ function arenaSweep() {
 
 function draw() {
     const gradient = context.createLinearGradient(0, 0, 10, 10);
-    gradient.addColorStop(0, '#FFE6E6'); 
-    gradient.addColorStop(0.2, '#FFF5E6'); 
-    gradient.addColorStop(0.4, '#FFFFE6'); 
-    gradient.addColorStop(0.6, '#E6FFEB'); 
-    gradient.addColorStop(0.8, '#E6F7FF'); 
-    gradient.addColorStop(1, '#F0E6FF');  
+    gradient.addColorStop(0, '#FFE6E6');
+    gradient.addColorStop(0.2, '#FFF5E6');
+    gradient.addColorStop(0.4, '#FFFFE6');
+    gradient.addColorStop(0.6, '#E6FFEB');
+    gradient.addColorStop(0.8, '#E6F7FF');
+    gradient.addColorStop(1, '#F0E6FF');
 
     context.fillStyle = gradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -271,6 +271,23 @@ function update(time = 0) {
     draw();
     requestAnimationFrame(update);
 }
+
+document.getElementById('left-button').addEventListener('click', () => {
+    playerMove(-1);
+});
+
+document.getElementById('right-button').addEventListener('click', () => {
+    playerMove(1);
+});
+
+document.getElementById('down-button').addEventListener('click', () => {
+    playerDrop();
+});
+
+document.getElementById('rotate-button').addEventListener('click', () => {
+    playerRotate(1);
+});
+
 
 playerReset();
 updateScore();
