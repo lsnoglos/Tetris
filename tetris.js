@@ -1,15 +1,16 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
-canvas.width = 300;
-canvas.height = 600;
-context.scale(20, 20);
+canvas.width = 277;
+canvas.height = 400;
+context.scale(23, 20);
 
 const arena = createMatrix(12, 20);
 let dropInterval = 1000;
 let level = 1;
 let maxLevelReached = 1;
 let dropCounter = 0;
+const pointsPerLevel = 10;
 
 const player = {
     pos: { x: 0, y: 0 },
@@ -55,7 +56,15 @@ function arenaSweep() {
 }
 
 function draw() {
-    context.fillStyle = '#000';
+    const gradient = context.createLinearGradient(0, 0, 10, 10);
+    gradient.addColorStop(0, '#FFE6E6'); 
+    gradient.addColorStop(0.2, '#FFF5E6'); 
+    gradient.addColorStop(0.4, '#FFFFE6'); 
+    gradient.addColorStop(0.6, '#E6FFEB'); 
+    gradient.addColorStop(0.8, '#E6F7FF'); 
+    gradient.addColorStop(1, '#F0E6FF');  
+
+    context.fillStyle = gradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     drawMatrix(arena, { x: 0, y: 0 });
@@ -149,13 +158,13 @@ function playerReset() {
 
 const colors = [
     null,
-    '#FF0D72',
-    '#0DC2FF',
-    '#0DFF72',
-    '#F538FF',
-    '#FF8E0D',
-    '#FFE138',
-    '#3877FF',
+    '#B30047',
+    '#0099CC',
+    '#009933',
+    '#B200E5',
+    '#CC7000',
+    '#CC9900',
+    '#1A53FF',
 ];
 
 function createPiece(type) {
