@@ -53,7 +53,7 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## 📸 Screenshots
 
-![image](https://github.com/lsnoglos/Tetris/assets/168380800/7ce74ee0-5a2f-4375-b47f-8c18da79da19)
+![image](https://github.com/lsnoglos/Tetris/assets/168380800/8b0ff3f6-f0a1-47d1-adb8-809b80cde54d)
 
 ---
 
