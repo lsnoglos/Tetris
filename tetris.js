@@ -33,7 +33,12 @@ function drawMatrix(matrix, offset) {
         row.forEach((value, x) => {
             if (value !== 0) {
                 context.fillStyle = colors[value];
+                context.shadowColor = 'rgba(255, 255, 255, 1)';
+                context.shadowBlur = 30;
+
                 context.fillRect(x + offset.x, y + offset.y, 1, 1);
+                context.shadowColor = 'transparent';
+                context.shadowBlur = 0;
             }
         });
     });
@@ -274,7 +279,7 @@ function checkHighScore() {
 
 function updateHighScore() {
     const highScore = localStorage.getItem('tetrisPoint') || 0;
-    document.getElementById('high-score').innerText = `Max Score: ${highScore}`;
+    document.getElementById('high-score').innerText = `Max: ${highScore}`;
 }
 
 function showGameOver() {

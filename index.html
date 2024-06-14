@@ -8,28 +8,30 @@
 </head>
 <body>
     <div class="game-container">
-        <div id="info">
-            <div id="level">Level 1</div>
-            <div id="score">0</div>
-            <div id="high-score">Max Score: 0</div>
+        <div id="info-container">
+            <div id="info">
+                <div id="level">Level 1</div>
+                <div id="score">0</div>
+                <div id="high-score">Max: 0</div>
+            </div>
+            <button id="pause-button">װ</button>
         </div>
-        <button id="pause-button">Pausa</button>
         <canvas id="tetris"></canvas>
         <div id="pause-message" class="hidden">
             <p id="pause-info"></p>
-            <button id="resume-button">Reanudar</button>
+            <button id="resume-button">➤</button>
         </div>
         <div id="game-over" class="hidden">
             <p>GAME OVER</p>
-            <button id="restart">Reiniciar</button>
-            <button id="exit">Salir</button>
+            <button id="restart">↺</button>
+            <button id="exit">X</button>
         </div>
     </div>
     <div class="controls">
-        <button id="left-button">←</button>
-        <button id="rotate-button">⟳</button>
+        <button id="left-button">←</button>        
         <button id="right-button">→</button>
         <button id="down-button">↓</button>
+        <button id="rotate-button">⟳</button>
     </div>
     <script src="tetris.js"></script>
 </body>
